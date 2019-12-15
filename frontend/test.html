@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>bloknot app - api tester</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet" />
+    <link href="tester-style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script src="tester-scripts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+    <div align="center">
+        <form id="form" action="" method="POST">
+            <input name='name' value='New note'>
+            <input name='text' value='Note text'>
+            <input name='category_id' value='2'>
+        </form>
+        <button onclick="submitForm();">Add new note</button>
+      </div>
+
+
+    <script>
+        function submitForm() {
+
+            var formArray = $("form").serializeArray();
+            //console.log(form);
+            var returnArray = {}
+            for (var i = 0; i < formArray.length; i++){
+                 returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+            console.log(returnArray);
+
+
+    $.ajax({
+        method: "POST",
+        url: "http://localhost:8080/api/note/create.php",
+        data: JSON.stringify(returnArray)
+    });
+  }
+    
+    </script>    
+
+      
+  </body>
+</html>
